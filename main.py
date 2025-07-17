@@ -6,7 +6,7 @@ class Game:
         self.rem = 0
 
     def start(self):
-        self.board = [['.' for i in range(8)] for j in range(8)]
+        self.board = [['.' for j in range(8)] for i in range(8)]
         self.history = []
         self.player = 1
         self.rem = 64
@@ -29,6 +29,7 @@ class Game:
             self.flip(x, y, -1, 1)
             self.flip(x, y, -1, -1)
 
+            self.history.append([[self.board[i][j] for j in range(8)] for i in range(8)])
             return True
 
         return False
@@ -67,6 +68,10 @@ class Game:
             return 'T'
 
         return None
+
+    def undo(self):
+        if len(self.history) > 0:
+            self.board = self.history.pop()
 
 
 def main():
