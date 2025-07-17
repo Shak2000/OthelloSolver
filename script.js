@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const boardContainer = document.getElementById('board-container');
     const startGameInGameBtn = document.getElementById('start-game-in-game-btn');
-    // const makeMoveBtn = document.getElementById('make-move-btn'); // Removed this button
     const computerMoveBtn = document.getElementById('computer-move-btn');
     const undoMoveBtn = document.getElementById('undo-move-btn');
     const quitGameBtn = document.getElementById('quit-game-btn');
@@ -14,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const whiteScoreDisplay = document.getElementById('white-score');
     const currentPlayerDisplay = document.getElementById('current-player');
     const messageBox = document.getElementById('message-box');
-
-    // let selectedCell = null; // No longer needed as clicks directly trigger moves
 
     // Function to display messages to the user
     function showMessage(message, type = 'info') {
@@ -119,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to disable/enable game controls
     function disableGameControls(disable) {
-        // makeMoveBtn.disabled = disable; // Removed
         computerMoveBtn.disabled = disable;
         undoMoveBtn.disabled = disable;
     }
@@ -165,8 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // makeMoveBtn.addEventListener('click', async () => { /* This listener is now removed */ });
-
     computerMoveBtn.addEventListener('click', async () => {
         showMessage('Computer is thinking...', 'info');
         try {
@@ -177,7 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
             await fetch('/computer_move', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ temp_game: currentState, depth_limit: 4 }) // Pass current state and depth
+                // Explicitly set depth_limit to 8 to match console's default
+                body: JSON.stringify({ temp_game: currentState, depth_limit: 8 })
             });
             showMessage('Computer made a move!', 'success');
             renderBoard();
