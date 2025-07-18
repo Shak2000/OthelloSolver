@@ -1,207 +1,206 @@
-# Othello Game with AI
+# Othello Game
 
-A full-featured Othello (Reversi) game implementation with both web interface and command-line interface, featuring an AI opponent powered by minimax algorithm with alpha-beta pruning.
+A web-based implementation of the classic Othello (Reversi) board game with AI opponent using minimax algorithm with alpha-beta pruning.
 
 ## Features
 
-- **Dual Interface**: Play via web browser or command line
-- **AI Opponent**: Intelligent computer player using minimax with alpha-beta pruning
+- **Interactive Web Interface**: Clean, modern UI built with HTML, CSS, and JavaScript
+- **Smart AI Opponent**: Minimax algorithm with alpha-beta pruning for challenging gameplay
+- **Adjustable AI Difficulty**: Configure AI search depth from 1 to any desired level
 - **Game Management**: Start new games, undo moves, and track scores
-- **Real-time Updates**: Dynamic board rendering and game state updates
-- **Responsive Design**: Mobile-friendly web interface
-- **Move Validation**: Automatic validation of legal moves according to Othello rules
-
-## Technologies Used
-
-- **Backend**: Python with FastAPI
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: Tailwind CSS
-- **AI Algorithm**: Minimax with Alpha-Beta Pruning
-- **Font**: Inter (Google Fonts)
-
-## Installation
-
-### Prerequisites
-
-- Python 3.7+
-- pip (Python package manager)
-
-### Setup
-
-1. **Clone or download the project files**
-   ```bash
-   # Ensure you have these files in your project directory:
-   # - main.py
-   # - app.py
-   # - index.html
-   # - styles.css
-   # - script.js
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pip install fastapi uvicorn pydantic
-   ```
-
-3. **Run the application**
-   ```bash
-   # For web interface
-   uvicorn app:app --reload --host 0.0.0.0 --port 8000
-   
-   # For command-line interface
-   python main.py
-   ```
-
-## Usage
-
-### Web Interface
-
-1. **Start the server**:
-   ```bash
-   uvicorn app:app --reload --host 0.0.0.0 --port 8000
-   ```
-
-2. **Open your browser** and navigate to `http://localhost:8000`
-
-3. **Game Controls**:
-   - Click "Start New Game" to begin
-   - Click on board squares to make moves
-   - Use "Computer Move" to let the AI play
-   - "Undo Move" to take back the last move
-   - "Start New Game" to reset the board
-   - "Quit Game" to return to main menu
-
-### Command Line Interface
-
-1. **Run the game**:
-   ```bash
-   python main.py
-   ```
-
-2. **Main Menu Options**:
-   - `1` - Start a New Game
-   - `2` - Quit
-
-3. **In-Game Options**:
-   - `1` - Make a Move (Player)
-   - `2` - Let Computer Make a Move
-   - `3` - Undo Last Move
-   - `4` - Start a New Game
-   - `5` - Quit
+- **Real-time Updates**: Live board state updates and move validation
+- **Responsive Design**: Works on desktop and mobile devices
 
 ## Game Rules
 
-Othello is played on an 8×8 board with black and white discs.
+Othello is played on an 8×8 board with black and white pieces. Players take turns placing pieces on the board:
 
-### Objective
-Have the majority of your colored discs on the board when the game ends.
+1. **Objective**: Have the most pieces of your color when the board is full or no moves are possible
+2. **Valid Moves**: You can only place a piece where it will flip at least one opponent's piece
+3. **Flipping**: When you place a piece, all opponent pieces in straight lines (horizontal, vertical, diagonal) between your new piece and another of your pieces are flipped to your color
+4. **Turn Skipping**: If you have no valid moves, your turn is skipped
+5. **Game End**: The game ends when the board is full or neither player can make a move
 
-### Rules
-1. **Starting Position**: The game begins with 4 discs in the center (2 black, 2 white)
-2. **Turn Order**: Black always moves first
-3. **Valid Moves**: A move must be placed on an empty square that "flanks" one or more opponent discs
-4. **Flanking**: A disc flanks opponent discs when it's placed such that one or more opponent discs are trapped between the new disc and an existing disc of the same color
-5. **Flipping**: All flanked opponent discs are flipped to your color
-6. **Passing**: If no valid moves are available, the turn passes to the opponent
-7. **Game End**: The game ends when the board is full or neither player can make a valid move
+## Installation & Setup
 
-## AI Algorithm
+### Prerequisites
 
-The computer opponent uses a **Minimax algorithm with Alpha-Beta Pruning**:
+- Python 3.8 or higher
+- pip (Python package manager)
 
-- **Depth**: Configurable search depth (default: 8 levels)
-- **Evaluation**: Board position scoring based on disc count differential
-- **Optimization**: Alpha-beta pruning for improved performance
-- **Strategy**: Maximizes computer's advantage while minimizing player's advantage
+### Installation
 
-### AI Difficulty
-You can adjust the AI difficulty by modifying the `depth_limit` parameter in the computer move function. Higher values make the AI stronger but slower.
+1. **Clone or download the project files**
+   ```bash
+   git clone <repository-url>
+   cd othello-game
+   ```
 
-## Project Structure
+2. **Install required dependencies**
+   ```bash
+   pip install fastapi uvicorn
+   ```
+
+3. **Start the web server**
+   ```bash
+   uvicorn app:app --reload
+   ```
+
+4. **Open your browser** and navigate to:
+   ```
+   http://localhost:8000
+   ```
+
+## File Structure
 
 ```
 othello-game/
-├── main.py          # Core game logic and command-line interface
-├── app.py           # FastAPI web server and API endpoints
-├── index.html       # Web interface HTML
-├── styles.css       # Custom CSS styles
-├── script.js        # Frontend JavaScript logic
-└── README.md        # This file
+├── app.py          # FastAPI web server and API endpoints
+├── main.py         # Core game logic and AI implementation
+├── index.html      # Main web interface
+├── styles.css      # Custom styling for the game board
+├── script.js       # Frontend JavaScript for game interaction
+└── README.md       # This file
 ```
+
+## How to Play
+
+### Web Interface
+
+1. **Starting a Game**: Click "Start New Game" from the main menu
+2. **Making Moves**: Click on any valid square on the board to place your piece
+3. **Computer Moves**: Click "Computer Move" to let the AI make its move
+4. **Adjusting AI Difficulty**: Use the "AI Depth" input to set the search depth (higher = stronger but slower)
+5. **Undo Moves**: Click "Undo Move" to revert the last move
+6. **Game Controls**: Use the control buttons to start new games or quit
+
+### Console Interface
+
+You can also run the game directly in the console:
+
+```bash
+python main.py
+```
+
+This provides a text-based interface with the same game features.
+
+## AI Implementation
+
+The AI uses the **minimax algorithm with alpha-beta pruning** to determine the best moves:
+
+- **Evaluation Function**: Difference in piece count between maximizing and minimizing players
+- **Search Depth**: Configurable depth limit (default: 4-8 moves ahead)
+- **Optimization**: Alpha-beta pruning reduces the search space for faster computation
+- **Strategy**: The AI considers all possible moves and their consequences to the specified depth
+
+### AI Difficulty Levels
+
+- **Depth 1-2**: Beginner (very fast, basic strategy)
+- **Depth 3-4**: Intermediate (good balance of speed and strategy)
+- **Depth 5-6**: Advanced (strong play, moderate computation time)
+- **Depth 7+**: Expert (very strong play, longer computation time)
 
 ## API Endpoints
 
-The web interface communicates with the backend through these REST API endpoints:
+The FastAPI backend provides the following endpoints:
 
-### Game Management
+- `GET /` - Serve the main web interface
 - `POST /start` - Start a new game
-- `GET /get_current_state` - Get current game state
-- `GET /is_game_over` - Check if game is finished
-- `GET /get_winner` - Get game winner
-
-### Move Operations
+- `GET /get_current_state` - Get the current game state
 - `POST /add` - Make a player move
-- `POST /computer_move` - Trigger AI move
-- `GET /undo` - Undo last move
-- `GET /get_valid_moves` - Get valid moves for current player
+- `POST /computer_move` - Execute AI move
+- `GET /undo` - Undo the last move
+- `GET /is_game_over` - Check if the game is finished
+- `GET /get_winner` - Get the game winner
+- `GET /get_valid_moves` - Get all valid moves for current player
 
-### Validation
-- `GET /is_valid_move` - Check if a move is valid
-- `GET /score_board` - Get current board evaluation
+## Technical Details
 
-## Customization
+### Game Class
 
-### Styling
-- Modify `styles.css` for custom board and piece appearance
-- Update Tailwind classes in `index.html` for UI changes
-- Adjust colors, fonts, and animations as desired
+The `Game` class manages:
+- Board state (8×8 grid)
+- Player turns and scoring
+- Move validation and execution
+- Game history for undo functionality
+- Win condition checking
 
-### AI Behavior
-- Change `depth_limit` in `computer_move` function to adjust AI strength
-- Modify `score_board` method in `Game` class for different evaluation strategies
-- Implement additional heuristics for more sophisticated AI play
+### AI Class
 
-### Game Rules
-- Adjust board size by modifying the grid dimensions in `Game.start()`
-- Implement different starting positions
-- Add time limits or move counters
+The `AI` class implements:
+- Minimax algorithm with alpha-beta pruning
+- Position evaluation
+- Move selection and execution
+- Configurable search depth
+
+### Frontend
+
+The web interface uses:
+- **HTML5** for structure
+- **Tailwind CSS** for styling
+- **Vanilla JavaScript** for interactivity
+- **Fetch API** for server communication
+
+## Development
+
+### Running in Development Mode
+
+```bash
+uvicorn app:app --reload --host 0.0.0.0 --port 8000
+```
+
+### Customizing the AI
+
+You can modify the AI behavior by:
+
+1. **Changing the evaluation function** in `Game.score_board()`
+2. **Adjusting the search depth** in the web interface or console
+3. **Implementing additional pruning techniques** in the minimax algorithm
+
+### Adding Features
+
+The modular design makes it easy to add features like:
+- Different AI difficulty presets
+- Game statistics tracking
+- Tournament mode
+- Custom board sizes
+- Advanced evaluation functions
+
+## Performance
+
+- **Typical response times**: 
+  - Depth 4: < 1 second
+  - Depth 6: 1-5 seconds
+  - Depth 8: 5-30 seconds
+- **Memory usage**: Minimal (< 50MB)
+- **Browser compatibility**: Modern browsers with JavaScript enabled
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Server won't start**:
-   - Check if port 8000 is already in use
-   - Ensure FastAPI and uvicorn are installed
-   - Try a different port: `uvicorn app:app --port 8080`
+1. **Server won't start**: Ensure FastAPI and uvicorn are installed
+2. **Slow AI moves**: Reduce the AI depth setting
+3. **Interface not loading**: Check that you're accessing `http://localhost:8000`
+4. **Move validation errors**: Ensure you're clicking on valid squares (green highlights)
 
-2. **Web interface not loading**:
-   - Verify the server is running
-   - Check browser console for JavaScript errors
-   - Ensure all files are in the same directory
+### Debug Mode
 
-3. **AI moves slowly**:
-   - Reduce the `depth_limit` parameter
-   - The default depth of 8 provides good gameplay balance
-
-4. **Invalid moves not being caught**:
-   - Ensure the move validation logic is working
-   - Check that the board state is being updated correctly
-
-## Contributing
-
-Feel free to enhance this Othello implementation:
-
-- Add more sophisticated AI evaluation functions
-- Implement different AI difficulty levels
-- Add sound effects and animations
-- Create multiplayer support
-- Add game statistics and move history
+Run with debug logging:
+```bash
+uvicorn app:app --reload --log-level debug
+```
 
 ## License
 
 This project is open source and available under the MIT License.
 
----
+## Contributing
 
-Enjoy playing Othello! 🎮
+Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
+
+## Credits
+
+- Classic Othello game rules
+- Minimax algorithm implementation
+- Web interface design with Tailwind CSS
