@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const whiteScoreDisplay = document.getElementById('white-score');
     const currentPlayerDisplay = document.getElementById('current-player');
     const messageBox = document.getElementById('message-box');
+    const depthInput = document.getElementById('depth-input'); // New: Get reference to depth input
 
     // Function to display messages to the user
     function showMessage(message, type = 'info') {
@@ -118,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function disableGameControls(disable) {
         computerMoveBtn.disabled = disable;
         undoMoveBtn.disabled = disable;
+        depthInput.disabled = disable; // Disable depth input as well
     }
 
     // Function to show/hide sections
@@ -162,6 +164,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     computerMoveBtn.addEventListener('click', async () => {
+        const depthValue = parseInt(depthInput.value);
+
+        if (isNaN(depthValue) || depthValue <= 0) {
+            showMessage('Please enter a valid positive number for AI depth.', 'error');
+            return;
+        }
+
         showMessage('Computer is thinking...', 'info');
         try {
             // Fetch current game state to pass to computer_move
@@ -171,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
             await fetch('/computer_move', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // Explicitly set depth_limit to 8 to match console's default
-                body: JSON.stringify({ temp_game: currentState, depth_limit: 8 })
+                // Use the depth value from the input field
+                body: JSON.stringify({ temp_game: currentState, depth_limit: depthValue })
             });
             showMessage('Computer made a move!', 'success');
             renderBoard();

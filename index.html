@@ -30,7 +30,10 @@
             </div>
 
             <div class="game-controls flex flex-wrap justify-center gap-4 mt-8">
-                <!-- Removed "Make Player Move" button -->
+                <div class="flex items-center gap-2 bg-gray-200 p-3 rounded-lg shadow-sm">
+                    <label for="depth-input" class="font-semibold text-gray-700">AI Depth:</label>
+                    <input type="number" id="depth-input" value="4" min="1" class="w-20 p-2 border border-gray-300 rounded-md text-center focus:ring-blue-500 focus:border-blue-500">
+                </div>
                 <button id="computer-move-btn" class="btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">Computer Move</button>
                 <button id="undo-move-btn" class="btn bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">Undo Move</button>
                 <button id="start-game-in-game-btn" class="btn bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">Start New Game</button>

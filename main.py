@@ -286,11 +286,11 @@ class AI:
                     break  # Alpha cut-off
             return min_eval, None  # We don't care about the minimizing player's best move here
 
-    def computer_move(self, game, depth_limit=8):
+    def computer_move(self, game, depth_limit):  # Removed default depth_limit
         """
         Determines and executes the computer's move using minimax with alpha-beta pruning.
         """
-        print(f"Computer ({game.player}) is thinking...")
+        print(f"Computer ({game.player}) is thinking with depth limit {depth_limit}...")
         current_state = game.get_current_state()
 
         # The computer is the maximizing player for its own turn
@@ -368,7 +368,19 @@ def main():
                 except ValueError:
                     print("Invalid input. Please enter numbers for coordinates.")
             elif choice == '2':
-                ai.computer_move(game)
+                # Prompt for depth limit for console
+                while True:
+                    try:
+                        depth_input = input("Enter AI search depth (e.g., 4, 6, 8): ").strip()
+                        depth_limit = int(depth_input)
+                        if depth_limit > 0:
+                            break
+                        else:
+                            print("Depth limit must be a positive integer.")
+                    except ValueError:
+                        print("Invalid input. Please enter a number for depth.")
+
+                ai.computer_move(game, depth_limit)  # Pass the user-defined depth
                 game.display_board()
             elif choice == '3':
                 game.undo()
